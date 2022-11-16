@@ -2,6 +2,8 @@
 using CapstoneV4.Models.DomainModels;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
+
+//seeding
 namespace CapstoneV4.Models.DataLayer.SeedData
 {
     public class SeedAuthors : IEntityTypeConfiguration<Author>
