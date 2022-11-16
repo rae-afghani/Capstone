@@ -15,7 +15,7 @@ namespace CapstoneV4.Models.DomainModels
         [MaxLength(60)]
         public string LastName { get; set; }
         public string FullName => $"{FirstName} {LastName}";
-        public ICollection<BookAuthors> BookAuthors { get; set; }
+        public ICollection<BookAuthor> BookAuthor { get; set; }
 
 
 

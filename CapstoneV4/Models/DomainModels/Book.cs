@@ -19,6 +19,6 @@ namespace CapstoneV4.Models.DomainModels
 
 
         public Genre Genre { get; set; }
-        public ICollection<BookAuthors> BookAuthors { get; set; }
+        public ICollection<BookAuthor> BookAuthor { get; set; }
     }
 }

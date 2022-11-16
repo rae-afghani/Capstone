@@ -1,6 +1,6 @@
 ﻿namespace CapstoneV4.Models.DomainModels
 {
-    public class BookAuthors
+    public class BookAuthor
     {
         public int BookId { get; set; }
 
