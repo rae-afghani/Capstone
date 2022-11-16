@@ -1,4 +1,5 @@
-﻿using CapstoneV4.Models.DomainModels;
+﻿using CapstoneV4.Models.DataLayer.SeedData;
+using CapstoneV4.Models.DomainModels;
 using Microsoft.EntityFrameworkCore;
 using System.Runtime.CompilerServices;
 
@@ -42,7 +43,7 @@ namespace CapstoneV4.Models.DataLayer
             modelBuilder.ApplyConfiguration(new SeedGenres());
             modelBuilder.ApplyConfiguration(new SeedBooks());
             modelBuilder.ApplyConfiguration(new SeedAuthors());
-            modelBuilder.ApplyConfiguration(new SeedBookAuthors());
+            modelBuilder.ApplyConfiguration(new SeedBookAuthor());
 
 
         }

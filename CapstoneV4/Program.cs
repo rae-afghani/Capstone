@@ -1,10 +1,24 @@
+using CapstoneV4.Models.DataLayer;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Configuration;
+
 var builder = WebApplication.CreateBuilder(args);
+string connString = builder.Configuration.GetConnectionString("CapstoneDB");
 
 builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews().AddNewtonsoftJson();
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 builder.Services.AddMemoryCache();
 builder.Services.AddSession();
+builder.Services.AddDbContext<CapstoneDB>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("CapstoneDB")));
 
 var app = builder.Build();
 

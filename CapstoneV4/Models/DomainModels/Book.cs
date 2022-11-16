@@ -12,7 +12,7 @@ namespace CapstoneV4.Models.DomainModels
         public string Title { get; set; }
 
         [Range(0.0,1000000.0, ErrorMessage ="Price must be more than 0 and less than one million.")]
-        public string Price { get; set; }
+        public double Price { get; set; }
 
         [Required(ErrorMessage = "Please select a genre")]
         public string GenreId { get; set; }
