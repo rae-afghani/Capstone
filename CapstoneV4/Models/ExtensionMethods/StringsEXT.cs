@@ -27,6 +27,7 @@ namespace CapstoneV4.Models.ExtensionMethods
         }
 
         //evaluates string to make sure that its lowercase
+        //referenced in route dictionary and data objects
         public static bool EqualsNoCase(this string s, string compare) =>
             s?.ToLower() == compare?.ToLower();
 

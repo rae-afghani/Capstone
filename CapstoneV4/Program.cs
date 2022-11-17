@@ -42,12 +42,12 @@ app.MapAreaControllerRoute(
     pattern: "Admin/{controller=Book}/{action=Index}/{id?}");
 
 
-//paging, sorting, filtering
+//paging, sorting, filtering BOOKS
 app.MapControllerRoute(
     name: "",
     pattern: "{controller}/{action}/page/{pagenumber}/size/{pagesize}/sort/{sortfield}/{sortdirection}/filter/{author}/{genre}/{price}"
     );
-//paging and sorting
+//paging and sorting through system
 app.MapControllerRoute(
     name: "",
     pattern: "{controller}/{action}/page/{pagenumber}/size/{pagesize}/sort/{sortfield}/{sortdirection}"
