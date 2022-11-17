@@ -58,7 +58,7 @@ namespace CapstoneV4.Models.Grid
 
         //sorts
         public bool SortByGenre => Routes.SortField.EqualsNoCase(nameof(Genre));
-        public bool SotrByPrice => Routes.SortField.EqualsNoCase(nameof(Book.Price));
+        public bool SortByPrice => Routes.SortField.EqualsNoCase(nameof(Book.Price));
 
     }
 }
