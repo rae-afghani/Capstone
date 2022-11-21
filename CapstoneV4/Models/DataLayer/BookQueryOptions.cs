@@ -21,7 +21,7 @@ namespace CapstoneV4.Models.DataLayer
                     Where = b => b.Price < 200;
                 else if (builder.CurrentRoute.PriceFilter == "200to300")
                     Where = b => b.Price >= 200 && b.Price <= 300;
-                else
+                else if (builder.CurrentRoute.PriceFilter == "over300")
                     Where = b => b.Price > 300;
             }
 
