@@ -28,4 +28,5 @@ namespace CapstoneV4.Models.ViewModels
             };
 
         public int[] PageSizes => new int[] { 10, 20, 30, 40, 50 };
+    }
 }

@@ -1,9 +1,6 @@
 ﻿
 using CapstoneV4.Models.DTOs;
 using CapstoneV4.Models.ExtensionMethods;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 
 namespace CapstoneV4.Models.Grid
@@ -55,11 +52,11 @@ namespace CapstoneV4.Models.Grid
         //creates method Clone to return a copy of the current route
         //dictionary object
         //purpose: in the instance of views with multiple pages/sorting uses routes to keep track of both current route values and to create the right values for each page
-        
+
         public RouteDictionary Clone()
         {
             var clone = new RouteDictionary();
-            foreach(var key in Keys)
+            foreach (var key in Keys)
             {
                 clone.Add(key, this[key]);
             }

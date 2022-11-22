@@ -12,8 +12,11 @@ namespace CapstoneV4.Models.DTOs
 {
     public class GridDTO
     {
-        public int PageNumber { get; set; }
-        public int PageSize { get; set; }
+        //set default to avoid bugs
+        public int PageNumber { get; set; } = 1;
+
+        //set default page size to avoid bugs
+        public int PageSize { get; set; } = 10;
         public string SortField { get; set; }
         public string SortDirection { get; set; } = "asc";
 
