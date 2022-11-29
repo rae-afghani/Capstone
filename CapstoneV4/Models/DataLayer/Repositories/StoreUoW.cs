@@ -1,7 +1,4 @@
 ﻿using CapstoneV4.Models.DomainModels;
-using CapstoneV4.Models.DataLayer.Repositories;
-using FluentAssertions;
-using System;
 
 
 namespace CapstoneV4.Models.DataLayer.Repositories
@@ -14,76 +11,76 @@ namespace CapstoneV4.Models.DataLayer.Repositories
             database = db;
         }
 
-        private Repository<Book> bookData;
-        public Repository<Book> Books
+        private Repository<Courses> courseData;
+        public Repository<Courses> Courses
         {
             get
             {
-                if (bookData == null)
+                if (courseData == null)
                 {
-                    bookData = new Repository<Book>(database);
+                    courseData = new Repository<Courses>(database);
                 }
-                return bookData;
+                return courseData;
             }
         }
 
 
-        private Repository<Author> authorData;
-        public Repository<Author> Authors
+        private Repository<DomainModels.Program> programData;
+        public Repository<DomainModels.Program> Programs
         {
             get
             {
-                if (authorData == null)
+                if (programData == null)
                 {
-                    authorData = new Repository<Author>(database);
+                    programData = new Repository<DomainModels.Program>(database);
                 }
-                return authorData;
+                return programData;
             }
         }
 
 
-        private Repository<BookAuthor> bookAuthorData;
-        public Repository<BookAuthor> BookAuthor
+        private Repository<CourseProgram> courseByProgramData;
+        public Repository<CourseProgram> CourseProgram
         {
             get
             {
-                if (bookAuthorData == null)
+                if (courseByProgramData == null)
                 {
-                    bookAuthorData = new Repository<BookAuthor>(database);
+                    courseByProgramData = new Repository<CourseProgram>(database);
                 }
-                return bookAuthorData;
+                return courseByProgramData;
             }
         }
 
 
-        private Repository<Genre> genreData;
-        public Repository<Genre> Genres
+        private Repository<Topics> topicData;
+        public Repository<Topics> Topics
         {
             get
             {
-                if (genreData == null)
+                if (topicData == null)
                 {
-                    genreData = new Repository<Genre>(database);
+                    topicData = new Repository<Topics>(database);
                 }
-                return genreData;
+                return topicData;
             }
         }
 
-        public Repository<BookAuthor> BookAuthors => throw new NotImplementedException();
-
-        public void AddNewBookAuthors(Book book, int[] authorids)
+        public void AddNewCoursePrograms(Courses course, int[] programids)
         {
-            book.BookAuthor = authorids.Select(i => new BookAuthor { Book = book, AuthorId = i}).ToList();
+            course.CourseProgram = programids.Select(i => new CourseProgram { Course = course, ProgramID = i }).ToList();
         }
 
-        public void DeleteCurrentBookAuthors(Book book)
+        public void DeleteCurrentCoursePrograms(Courses course)
         {
-            var currentAuthors = BookAuthor.List(new QueryOptions<BookAuthor> {
-                Where = ba => ba.BookId == book.BookId
+            var currentPrograms = CourseProgram.List(new QueryOptions<CourseProgram>
+            {
+                Where = prgm => prgm.CourseID == course.CourseID
             });
 
-            foreach(BookAuthor ba in currentAuthors) {
-                BookAuthor.Delete(ba);
+            foreach (CourseProgram prgm in currentPrograms)
+            {
+                CourseProgram.Delete(prgm);
             }
         }
 

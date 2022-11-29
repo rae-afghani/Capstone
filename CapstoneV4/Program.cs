@@ -1,13 +1,6 @@
 using CapstoneV4.Models.DataLayer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Configuration;
+
 
 var builder = WebApplication.CreateBuilder(args);
 string connString = builder.Configuration.GetConnectionString("CapstoneDB");
@@ -39,13 +32,13 @@ app.UseAuthorization();
 app.MapAreaControllerRoute(
     name: "admin",
     areaName: "Admin",
-    pattern: "Admin/{controller=Book}/{action=Index}/{id?}");
+    pattern: "Admin/{controller=Course}/{action=Index}/{id?}");
 
 
-//paging, sorting, filtering BOOKS
+//paging, sorting, filtering courses
 app.MapControllerRoute(
     name: "",
-    pattern: "{controller}/{action}/page/{pagenumber}/size/{pagesize}/sort/{sortfield}/{sortdirection}/filter/{author}/{genre}/{price}"
+    pattern: "{controller}/{action}/page/{pagenumber}/size/{pagesize}/sort/{sortfield}/{sortdirection}/filter/{program}/{topic}/{tuition}"
     );
 //paging and sorting through system
 app.MapControllerRoute(

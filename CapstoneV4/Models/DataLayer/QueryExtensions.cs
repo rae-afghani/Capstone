@@ -1,7 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using CapstoneV4.Models.DataLayer;
-
-namespace CapstoneV4.Models.DataLayer
+﻿namespace CapstoneV4.Models.DataLayer
 {
     public static class QueryExtensions
     {

@@ -7,9 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Models\ViewModels\CourseListVM.cs~RF1c12aa2.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Areas\Admin\" />
-    <Folder Include="Views\Author\" />
-    <Folder Include="Views\Cart\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -2,7 +2,7 @@
 {
     public class CartDTO
     {
-        public int BookId { get; set; }
+        public int CourseID { get; set; }
         public int Quantity { get; set; }
 
 

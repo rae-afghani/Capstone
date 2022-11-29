@@ -1,7 +1,6 @@
 ﻿using CapstoneV4.Models.DataLayer.SeedData;
 using CapstoneV4.Models.DomainModels;
 using Microsoft.EntityFrameworkCore;
-using System.Runtime.CompilerServices;
 
 namespace CapstoneV4.Models.DataLayer
 {
@@ -10,40 +9,45 @@ namespace CapstoneV4.Models.DataLayer
         public CapstoneDB(DbContextOptions<CapstoneDB> options)
             : base(options) { }
 
-        public DbSet<Author> Authors { get; set; }
-        public DbSet<Book> Books { get; set; }
-        public DbSet<BookAuthor> BookAuthor { get; set; }
-        public DbSet<Genre> Genres { get; set; }
+        public DbSet<DomainModels.Program> Programs { get; set; }
+        public DbSet<Courses> Courses { get; set; }
+        public DbSet<CourseProgram> CourseProgram { get; set; }
+        public DbSet<Topics> Topics { get; set; }
 
-        
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {   
+        {
 
             //creating primary keys
-            modelBuilder.Entity<BookAuthor>().HasKey(ba => new {ba.BookId, ba.AuthorId});
+            modelBuilder.Entity<Courses>().HasKey(c => new { c.CourseID });
+            modelBuilder.Entity<Topics>().HasKey(c => new { c.TopicID});
+            modelBuilder.Entity<CourseProgram>().HasKey(prgm => new { prgm.CourseID, prgm.ProgramID });
 
 
             //foreign keys
-            modelBuilder.Entity<BookAuthor>().HasOne(ba => ba.Book)
-                .WithMany(b => b.BookAuthor)
-                .HasForeignKey(ba => ba.BookId);
 
-            modelBuilder.Entity<BookAuthor>().HasOne(ba => ba.Author)
-                .WithMany(b => b.BookAuthor)
-                .HasForeignKey(ba => ba.AuthorId);
+            modelBuilder.Entity<CourseProgram>()
+                        .HasOne(prgm => prgm.Course)
+                        .WithMany(c => c.CourseProgram)
+                        .HasForeignKey(prgm => prgm.CourseID);
 
+            modelBuilder.Entity<CourseProgram>()
+                .HasOne(prgm => prgm.Program)
+                .WithMany(c => c.CourseProgram)
+                .HasForeignKey(prgm => prgm.ProgramID);
 
-            //removing cascading delete w/ genre
-            modelBuilder.Entity<Book>().HasOne(b => b.Genre)
-                .WithMany(g => g.Books)
+            //prevent cascading delete w/ topic
+            modelBuilder.Entity<Courses>()
+                .HasOne(c => c.Topic)
+                .WithMany(t => t.Courses)
                 .OnDelete(DeleteBehavior.Restrict);
 
 
 
-            modelBuilder.ApplyConfiguration(new SeedGenres());
-            modelBuilder.ApplyConfiguration(new SeedBooks());
-            modelBuilder.ApplyConfiguration(new SeedAuthors());
-            modelBuilder.ApplyConfiguration(new SeedBookAuthor());
+            modelBuilder.ApplyConfiguration(new SeedTopics());
+            modelBuilder.ApplyConfiguration(new SeedCourses());
+            modelBuilder.ApplyConfiguration(new SeedPrograms());
+            modelBuilder.ApplyConfiguration(new SeedCourseByProgram());
 
 
         }

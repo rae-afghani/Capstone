@@ -10,7 +10,8 @@ namespace CapstoneV4.Models.ViewModels
 
         public IEnumerable<CartItem> List { get; set; }
         public double Subtotal { get; set; }
-        public RouteDictionary BookGrid { get; set; }
+        public double Total { get; set; }
+        public RouteDictionary CoursesGrid { get; set; }
 
 
 

@@ -9,10 +9,14 @@ namespace CapstoneV4.Models.DomainModels
         //converted to JSON string
         //subtotal is readonly
 
-        public BookDTO Book { get; set; }
+        public CoursesDTO Course { get; set; }
         public int Quantity { get; set; }
         [JsonIgnore]
-        public double Subtotal => Book.Price * Quantity;
+        public double Subtotal => Course.Tuition * Quantity;
+
+
+        //accounting for tax
+        public double Total => Subtotal * 1.0625;
 
     }
 }

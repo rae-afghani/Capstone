@@ -21,152 +21,246 @@ namespace CapstoneV4.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("CapstoneV4.Models.DomainModels.Author", b =>
+            modelBuilder.Entity("CapstoneV4.Models.DomainModels.CourseProgram", b =>
                 {
-                    b.Property<int>("AuthorID")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("CourseID")
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AuthorID"), 1L, 1);
+                    b.Property<int>("ProgramID")
+                        .HasColumnType("int");
 
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                    b.HasKey("CourseID", "ProgramID");
 
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(60)
-                        .HasColumnType("nvarchar(60)");
+                    b.HasIndex("ProgramID");
 
-                    b.HasKey("AuthorID");
-
-                    b.ToTable("Authors");
+                    b.ToTable("CourseProgram");
 
                     b.HasData(
                         new
                         {
-                            AuthorID = 1,
-                            FirstName = "FName1",
-                            LastName = "LName1"
+                            CourseID = 101,
+                            ProgramID = 1
                         },
                         new
                         {
-                            AuthorID = 2,
-                            FirstName = "FName2",
-                            LastName = "LName2"
+                            CourseID = 102,
+                            ProgramID = 1
                         },
                         new
                         {
-                            AuthorID = 3,
-                            FirstName = "FName3",
-                            LastName = "LName3"
+                            CourseID = 103,
+                            ProgramID = 1
                         },
                         new
                         {
-                            AuthorID = 4,
-                            FirstName = "FName4",
-                            LastName = "LName4"
+                            CourseID = 104,
+                            ProgramID = 1
+                        },
+                        new
+                        {
+                            CourseID = 105,
+                            ProgramID = 1
+                        },
+                        new
+                        {
+                            CourseID = 201,
+                            ProgramID = 2
+                        },
+                        new
+                        {
+                            CourseID = 202,
+                            ProgramID = 2
+                        },
+                        new
+                        {
+                            CourseID = 203,
+                            ProgramID = 2
+                        },
+                        new
+                        {
+                            CourseID = 301,
+                            ProgramID = 3
+                        },
+                        new
+                        {
+                            CourseID = 302,
+                            ProgramID = 3
+                        },
+                        new
+                        {
+                            CourseID = 303,
+                            ProgramID = 3
                         });
                 });
 
-            modelBuilder.Entity("CapstoneV4.Models.DomainModels.Book", b =>
+            modelBuilder.Entity("CapstoneV4.Models.DomainModels.Courses", b =>
                 {
-                    b.Property<int>("BookId")
+                    b.Property<int>("CourseID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CourseID"), 1L, 1);
 
-                    b.Property<string>("GenreId")
+                    b.Property<string>("CourseDescription")
                         .IsRequired()
-                        .HasColumnType("nvarchar(10)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
-
-                    b.Property<string>("Title")
+                    b.Property<string>("CourseName")
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.HasKey("BookId");
+                    b.Property<string>("TopicID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(10)");
 
-                    b.HasIndex("GenreId");
+                    b.Property<double>("Tuition")
+                        .HasColumnType("float");
 
-                    b.ToTable("Books");
+                    b.HasKey("CourseID");
 
-                    b.HasData(
-                        new
-                        {
-                            BookId = 1,
-                            GenreId = "history",
-                            Price = 199.0,
-                            Title = "Book1"
-                        },
-                        new
-                        {
-                            BookId = 2,
-                            GenreId = "scifi",
-                            Price = 249.0,
-                            Title = "Book2"
-                        },
-                        new
-                        {
-                            BookId = 3,
-                            GenreId = "history",
-                            Price = 199.0,
-                            Title = "Book3"
-                        },
-                        new
-                        {
-                            BookId = 4,
-                            GenreId = "scifi",
-                            Price = 249.0,
-                            Title = "Book4"
-                        });
-                });
+                    b.HasIndex("TopicID");
 
-            modelBuilder.Entity("CapstoneV4.Models.DomainModels.BookAuthor", b =>
-                {
-                    b.Property<int>("BookId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("AuthorId")
-                        .HasColumnType("int");
-
-                    b.HasKey("BookId", "AuthorId");
-
-                    b.HasIndex("AuthorId");
-
-                    b.ToTable("BookAuthor");
+                    b.ToTable("Courses");
 
                     b.HasData(
                         new
                         {
-                            BookId = 1,
-                            AuthorId = 3
+                            CourseID = 101,
+                            CourseDescription = "Chemistry means change. Whether we’re talking about hydrocarbons, the periodic table, or the study of how substances interact with one another, no matter what we focus on in chemistry, you can bet that it’ll be something that has some kind of effect on our world. We explore how things work together to create new things and help us understand the world around us. And if there’s anything chemistry teaches us, it’s that everything is connected - even across all forms of nature.",
+                            CourseName = "Let's Get Reactive: Chemistry Foundations",
+                            TopicID = "chem",
+                            Tuition = 229.0
                         },
                         new
                         {
-                            BookId = 2,
-                            AuthorId = 2
+                            CourseID = 102,
+                            CourseDescription = "Get ready to have some fun as you learn everything it takes to plan, design, and program your own 2D and 3D games. This class uses Unity's C# language to teach core game development skills. The projects you create will be brought to life with animation, sound effects, and music. In the final few weeks of this course, students will create an original game for class showcase day!",
+                            CourseName = "Game Designer: Program Your Own Game",
+                            TopicID = "cs",
+                            Tuition = 229.0
                         },
                         new
                         {
-                            BookId = 3,
-                            AuthorId = 3
+                            CourseID = 103,
+                            CourseDescription = "A step up from our introductory web development course, Web Masters is all about learning how to take static HTML files to the web! We will review HTML and CSS, continue into JavaScript, and dive into server-side scripting with PHP. By the end of this course, you'll have hands-on experience creating complete websites such as blogs, and portfolios, or even a simple eCommerce site.",
+                            CourseName = "Web Masters: Advanced Web Development",
+                            TopicID = "cs",
+                            Tuition = 229.0
                         },
                         new
                         {
-                            BookId = 4,
-                            AuthorId = 4
+                            CourseID = 104,
+                            CourseDescription = "Who am I? This is a question humans have been trying to answer since the dawn of time. In this course, students will build upon their knowledge of psychology, learning about theories, methods, and research around personality testing. In addition, we'll cover how we can use our understanding of personality and personality disorders in everyday situations.",
+                            CourseName = "Advanced Psychology: Understanding You",
+                            TopicID = "psych",
+                            Tuition = 229.0
+                        },
+                        new
+                        {
+                            CourseID = 105,
+                            CourseDescription = "Robotics is one of the more exciting and dynamic fields of engineering, with students have a blast building things and seeing them come to life. This course will give students a chance to learn the fundamentals of robotics and engineering through exciting, hands-on activities using Lego and VEX Robotics. Students will cover topics such as circuitry, hardware and software development, simple machines, Python programming, and more!",
+                            CourseName = "Robotics: Build a Robot from Scratch",
+                            TopicID = "cs",
+                            Tuition = 229.0
+                        },
+                        new
+                        {
+                            CourseID = 201,
+                            CourseDescription = "Python is a fast, easy and versatile language that can be used for everything from data science to game development. Students will learn how to make computer program using loops, conditionals and variables, with examples in Python libraries like Numpy and Pandas. Students will also learn the basics of application development such as GUIs, database creation and testing.",
+                            CourseName = "Sssstrengthen Your Ssskills in Python",
+                            TopicID = "cs",
+                            Tuition = 199.0
+                        },
+                        new
+                        {
+                            CourseID = 202,
+                            CourseDescription = "Master the principles and theories of aerospace science with these hands-on projects. Students build a model space shuttle, design and test airfoils that allow an object to fly, and create 3D models of rockets and spacecraft. Along the way, they will apply orbital mechanics concepts to build an accurate depiction of a rocket launch or a satellite in orbit.",
+                            CourseName = "It's Not Rocket Science: Aerospace Fundamentals",
+                            TopicID = "phys",
+                            Tuition = 199.0
+                        },
+                        new
+                        {
+                            CourseID = 203,
+                            CourseDescription = "Chemistry means change. Whether we’re talking about hydrocarbons, the periodic table, or the study of how substances interact with one another, no matter what we focus on in chemistry, you can bet that it’ll be something that has some kind of effect on our world. We explore how things work together to create new things and help us understand the world around us. And if there’s anything chemistry teaches us, it’s that everything is connected - even across all forms of nature.",
+                            CourseName = "Let's Get Reactive: Chemistry Foundations",
+                            TopicID = "chem",
+                            Tuition = 199.0
+                        },
+                        new
+                        {
+                            CourseID = 301,
+                            CourseDescription = "A one-on-one course focused on Algebra.",
+                            CourseName = "Academic Accelerator: Algebra",
+                            TopicID = "math",
+                            Tuition = 149.0
+                        },
+                        new
+                        {
+                            CourseID = 302,
+                            CourseDescription = "A one-on-one course focused on Physics.",
+                            CourseName = "Academic Accelerator: Physics",
+                            TopicID = "phys",
+                            Tuition = 149.0
+                        },
+                        new
+                        {
+                            CourseID = 303,
+                            CourseDescription = "A one-on-one course focused on Biology.",
+                            CourseName = "Academic Accelerator: Biology",
+                            TopicID = "biol",
+                            Tuition = 149.0
                         });
                 });
 
-            modelBuilder.Entity("CapstoneV4.Models.DomainModels.Genre", b =>
+            modelBuilder.Entity("CapstoneV4.Models.DomainModels.Program", b =>
                 {
-                    b.Property<string>("GenreId")
+                    b.Property<int>("ProgramID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProgramID"), 1L, 1);
+
+                    b.Property<string>("ProgramDescription")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("ProgramType")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("ProgramID");
+
+                    b.ToTable("Programs");
+
+                    b.HasData(
+                        new
+                        {
+                            ProgramID = 1,
+                            ProgramDescription = "This is an in-person course led by an instructor. Our classroom ratios are 5:1. Classes meet once a week.",
+                            ProgramType = "Group Learning"
+                        },
+                        new
+                        {
+                            ProgramID = 2,
+                            ProgramDescription = "The curriculum of our Academic Accelerators empowers students where their weak points are. Students enrolled in this program meet with an instructor once a week at our campus.",
+                            ProgramType = "1-On-1"
+                        },
+                        new
+                        {
+                            ProgramID = 3,
+                            ProgramDescription = "This is a virtual course led by an instructor over Zoom. Upon enrollment, Science Lab provides all the necessary materials to succeed in this program. Classes meet once a week.",
+                            ProgramType = "Virtual Course"
+                        });
+                });
+
+            modelBuilder.Entity("CapstoneV4.Models.DomainModels.Topics", b =>
+                {
+                    b.Property<string>("TopicID")
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
@@ -175,81 +269,86 @@ namespace CapstoneV4.Migrations
                         .HasMaxLength(25)
                         .HasColumnType("nvarchar(25)");
 
-                    b.HasKey("GenreId");
+                    b.HasKey("TopicID");
 
-                    b.ToTable("Genres");
+                    b.ToTable("Topics");
 
                     b.HasData(
                         new
                         {
-                            GenreId = "novel",
-                            Name = "Novel"
+                            TopicID = "cs",
+                            Name = "Compuer Science"
                         },
                         new
                         {
-                            GenreId = "memoir",
-                            Name = "Memoir"
+                            TopicID = "math",
+                            Name = "Mathematics"
                         },
                         new
                         {
-                            GenreId = "mystery",
-                            Name = "Mystery"
+                            TopicID = "chem",
+                            Name = "Chemistry"
                         },
                         new
                         {
-                            GenreId = "scifi",
-                            Name = "SciFi"
+                            TopicID = "psych",
+                            Name = "Psychology"
                         },
                         new
                         {
-                            GenreId = "history",
-                            Name = "History"
+                            TopicID = "phys",
+                            Name = "Physics"
+                        },
+                        new
+                        {
+                            TopicID = "biol",
+                            Name = "Biology"
                         });
                 });
 
-            modelBuilder.Entity("CapstoneV4.Models.DomainModels.Book", b =>
+            modelBuilder.Entity("CapstoneV4.Models.DomainModels.CourseProgram", b =>
                 {
-                    b.HasOne("CapstoneV4.Models.DomainModels.Genre", "Genre")
-                        .WithMany("Books")
-                        .HasForeignKey("GenreId")
+                    b.HasOne("CapstoneV4.Models.DomainModels.Courses", "Course")
+                        .WithMany("CourseProgram")
+                        .HasForeignKey("CourseID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CapstoneV4.Models.DomainModels.Program", "Program")
+                        .WithMany("CourseProgram")
+                        .HasForeignKey("ProgramID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Course");
+
+                    b.Navigation("Program");
+                });
+
+            modelBuilder.Entity("CapstoneV4.Models.DomainModels.Courses", b =>
+                {
+                    b.HasOne("CapstoneV4.Models.DomainModels.Topics", "Topic")
+                        .WithMany("Courses")
+                        .HasForeignKey("TopicID")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Genre");
+                    b.Navigation("Topic");
                 });
 
-            modelBuilder.Entity("CapstoneV4.Models.DomainModels.BookAuthor", b =>
+            modelBuilder.Entity("CapstoneV4.Models.DomainModels.Courses", b =>
                 {
-                    b.HasOne("CapstoneV4.Models.DomainModels.Author", "Author")
-                        .WithMany("BookAuthor")
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CapstoneV4.Models.DomainModels.Book", "Book")
-                        .WithMany("BookAuthor")
-                        .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Author");
-
-                    b.Navigation("Book");
+                    b.Navigation("CourseProgram");
                 });
 
-            modelBuilder.Entity("CapstoneV4.Models.DomainModels.Author", b =>
+            modelBuilder.Entity("CapstoneV4.Models.DomainModels.Program", b =>
                 {
-                    b.Navigation("BookAuthor");
+                    b.Navigation("CourseProgram");
                 });
 
-            modelBuilder.Entity("CapstoneV4.Models.DomainModels.Book", b =>
+            modelBuilder.Entity("CapstoneV4.Models.DomainModels.Topics", b =>
                 {
-                    b.Navigation("BookAuthor");
-                });
-
-            modelBuilder.Entity("CapstoneV4.Models.DomainModels.Genre", b =>
-                {
-                    b.Navigation("Books");
+                    b.Navigation("Courses");
                 });
 #pragma warning restore 612, 618
         }

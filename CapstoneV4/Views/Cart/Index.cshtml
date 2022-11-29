@@ -1,0 +1,64 @@
+﻿@model CapstoneV4.Models.ViewModels.CartVM
+
+@{
+    ViewData["Title"] = " | Cart";
+}
+
+<h1>Your cart</h1>
+<form asp-controller="Cart" asp-action="Clear" method="post">
+    <ul>
+        <li class="list-group-item">
+            <div class="row">
+                <div class="col">
+                    Total: @Model.Total.ToString("c")
+                </div>
+                <div class="col">
+                    <div class="float-right">
+                        <a asp-controller="Cart" asp-action="Checkout" class="btn btn-primary">Checkout</a>
+                        <button type="submit" class="btn btn-primary">Clear Cart</button>
+                        <a asp-controller="Course" asp-action="List" asp-all-route-data="@Model.CoursesGrid">Back to Classes</a>
+                    </div>
+                </div>
+            </div>
+
+        </li>
+    </ul>
+</form>
+
+
+<form asp-controller="Cart" asp-action="Remove" method="post">
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th>Course Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (CapstoneV4.Models.DomainModels.CartItem item in Model.List)
+            {
+                <tr>
+                    <td>
+                        <p>@item.Course.CourseName</p>
+                    </td>
+                    <td>@item.Course.Tuition.ToString("c")</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.Subtotal.ToString("c")</td>
+                    <td>
+                        <div class="float-right">
+                            <a asp-controller="Cart" asp-action="Edit" asp-route-id="@item.Course.CourseID" class="btn btn-primary">Edit</a>
+                            <button type="submit" name="id" value="@item.Course.CourseID" class="btn btn-primary">Remove</button>
+                        </div>
+                    </td>
+                    
+                </tr>
+            }
+            </tbody>
+        </table>
+    </form>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>

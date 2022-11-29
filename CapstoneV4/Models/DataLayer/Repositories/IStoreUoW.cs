@@ -8,21 +8,19 @@
 //database operations will ROLLBACK
 
 using CapstoneV4.Models.DomainModels;
-using CapstoneV4.Models.DataLayer.Repositories;
-using System;
 
 
 namespace CapstoneV4.Models.DataLayer.Repositories
 {
     public interface IStoreUoW
     {
-        Repository<Book> Books { get; }
-        Repository<Author> Authors { get; }
-        Repository<BookAuthor> BookAuthors { get; }
-        Repository<Genre> Genres { get; }
+        Repository<Courses> Courses { get; }
+        Repository<DomainModels.Program> Programs { get; }
+        Repository<CourseProgram> CourseProgram { get; }
+        Repository<Topics> Topics { get; }
 
-        void DeleteCurrentBookAuthors(Book book);
-        void AddNewBookAuthors(Book book, int[] authorids);
+        void DeleteCurrentCoursePrograms(Courses course);
+        void AddNewCoursePrograms(Courses course, int[] programids);
         void Save();
 
 

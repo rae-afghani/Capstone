@@ -12,7 +12,7 @@ namespace CapstoneV4.Models.DataLayer.Repositories
 
             database = db;
             dbSet = database.Set<T>();
-        
+
         }
 
         //here, i am getting the number of entities that are being pulled, using a private field when filtering because there may be instances where the COUNT is less than DBSET.COUNT()
@@ -35,7 +35,7 @@ namespace CapstoneV4.Models.DataLayer.Repositories
         public virtual T Get(string id) => dbSet.Find(id);
 
         public virtual void Insert(T entity) => dbSet.Add(entity);
- 
+
 
         public virtual IEnumerable<T> List(QueryOptions<T> options)
         {
@@ -69,10 +69,11 @@ namespace CapstoneV4.Models.DataLayer.Repositories
 
             if (options.HasOrderBy)
             {    //ascending order sort
-                if(options.OrderByDirection == "asc")
+                if (options.OrderByDirection == "asc")
                 {
                     query = query.OrderBy(options.OrderBy);
-                } else
+                }
+                else
                 {
                     query = query.OrderByDescending(options.OrderBy);
                 }
@@ -84,7 +85,7 @@ namespace CapstoneV4.Models.DataLayer.Repositories
 
             if (options.HasPaging)
             {
-                query = query.PageBy(options.PageNumber,options.PageSize);
+                query = query.PageBy(options.PageNumber, options.PageSize);
             }
 
             return query;

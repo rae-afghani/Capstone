@@ -5,9 +5,6 @@ using CapstoneV4.Models.DataLayer;
 using CapstoneV4.Models.DataLayer.Repositories;
 using CapstoneV4.Models.DTOs;
 using CapstoneV4.Models.ExtensionMethods;
-using System;
-using Microsoft.AspNetCore.Http.Features;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace CapstoneV4.Models.DomainModels
 {
@@ -31,31 +28,32 @@ namespace CapstoneV4.Models.DomainModels
             responseCookies = ctx.Response.Cookies;
         }
 
-        public void Load(Repository<Book> data)
+        public void Load(Repository<Courses> courseData)
         {
             itemsCart = session.GetObj<List<CartItem>>(CartKey);
             if (itemsCart == null)
             {
                 itemsCart = new List<CartItem>();
-                storedCart = requestCookies.GetCookieObj<List<CartDTO>>(CountKey);
+                storedCart = requestCookies.GetCookieObj<List<CartDTO>>(CartKey);
             }
-            if(storedCart?.Count > itemsCart?.Count)
+            if (storedCart?.Count > itemsCart?.Count)
             {
-                foreach(CartDTO stored in storedCart)
+                foreach (CartDTO stored in storedCart)
                 {
-                    var book = data.Get(new QueryOptions<Book> {
-                        Includes = "BookAuthors.Author, Genre",
-                        Where = b => b.BookId == stored.BookId
+                    var course = courseData.Get(new QueryOptions<Courses>
+                    {
+                        Includes = "CourseProgram.Program, Topic",
+                        Where = c => c.CourseID == stored.CourseID
                     });
 
-                    if (book != null)
+                    if (course != null)
                     {
-                        var dto = new BookDTO();
-                        dto.Load(book);
+                        var dto = new CoursesDTO();
+                        dto.Load(course);
 
                         CartItem item = new CartItem
                         {
-                            Book = dto,
+                            Course = dto,
                             Quantity = stored.Quantity
                         };
 
@@ -64,7 +62,7 @@ namespace CapstoneV4.Models.DomainModels
                 }
                 Save();
             }
-        }  
+        }
 
         public double Subtotal => itemsCart.Sum(i => i.Subtotal);
         public int? Count => session.GetInt32(CountKey) ?? requestCookies.GetCookieInt32(CountKey);
@@ -72,13 +70,13 @@ namespace CapstoneV4.Models.DomainModels
 
 
         //method that returns cart items by the product id
-        public CartItem GetByID(int id) => itemsCart.FirstOrDefault(c => c.Book.BookId == id);
+        public CartItem GetByID(int id) => itemsCart.FirstOrDefault(c => c.Course.CourseID == id);
 
         //add items to cart
         //check if exists, if null then add to cart
         public void Add(CartItem item)
         {
-            var inCartTest = GetByID(item.Book.BookId);
+            var inCartTest = GetByID(item.Course.CourseID);
             if (inCartTest == null)
                 itemsCart.Add(item);
             else
@@ -88,7 +86,7 @@ namespace CapstoneV4.Models.DomainModels
         //allows for cart/quantity value changes by user
         public void Edit(CartItem item)
         {
-            var inCartTest = GetByID(item.Book.BookId);
+            var inCartTest = GetByID(item.Course.CourseID);
             if (inCartTest != null)
                 inCartTest.Quantity = item.Quantity;
         }

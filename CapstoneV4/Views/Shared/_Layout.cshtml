@@ -1,45 +1,103 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var cart = new CapstoneV4.Models.DomainModels.Cart(Context);
+
+    
+    //check for active tab
+    var current = ViewContext.RouteData.Values["area"]?.ToString() ?? ViewContext.RouteData.Values["controller"]?.ToString();
+
+    
+}
+
+
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - CapstoneV4</title>
+    <title>Science Lab @ViewData["Title"]</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <script src="https://kit.fontawesome.com/e35bba6fdd.js" crossorigin="anonymous"></script>
+
+    <link href="~/css/theme.css" rel="stylesheet" />
+
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
     <link rel="stylesheet" href="~/CapstoneV4.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-md navbar-dark ">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">CapstoneV4</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                <a class="navbar-brand d-md-none" href="#">
+                    <img src="./assets/logoName.png" alt="">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+                <div class="collapse navbar-collapse" id="navbarNav">
+
+                    <ul class="navbar-nav mx-auto">
+
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link active" aria-current="page" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+
+
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Programs</a>
+                        </li>
+
+
+
+                        <li class="navbar-brand">
+                        <img height="100px" src="~/assets/logoname.png" />
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="r-Pricing">Pricing</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link r-nav-btn" asp-area="" asp-controller="Courses" asp-action="List">Enroll</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link r-nav-btn fa-solid fa-2x fa-cart-shopping" asp-area="" asp-controller="Cart" asp-action="Index"><span class="badge badge-light">@cart.Count</span>
+                            </a>
+
+
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
-    </header>
+
+
+
+
+
+
     <div class="container">
-        <main role="main" class="pb-3">
+        <main role="main" class="">
+            @if (TempData.Keys.Contains("message"))
+            {
+                <h3 class="bg-info text-center text-white p-2">@TempData["message"]</h3>
+            }
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - CapstoneV4 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <footer class="text-center" style="display:flex; justify-content: center; flex-direction: column; height: 200px;">
+        <div>
+            <img src="~/assets/logoname.png" style="height: 100px; width:auto;">
+
         </div>
+
+        <p>
+            <br>
+            Designed & Developed by Rae Afghani
+
+        </p>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

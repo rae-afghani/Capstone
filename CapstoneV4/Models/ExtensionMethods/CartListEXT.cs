@@ -7,7 +7,7 @@ namespace CapstoneV4.Models.ExtensionMethods
     {
         public static List<CartDTO> ToDTO(this List<CartItem> cart) => cart.Select(c => new CartDTO
         {
-            BookId = c.Book.BookId,
+            CourseID = c.Course.CourseID,
             Quantity = c.Quantity
 
         }).ToList();

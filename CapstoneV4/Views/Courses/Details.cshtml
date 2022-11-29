@@ -1,0 +1,59 @@
+﻿@model CapstoneV4.Models.DomainModels.Courses
+
+@{
+    ViewData["Title"] = " | Course Details";
+}
+
+<h1 class="text-center">Course Overview</h1>
+
+<table class="table table-bordered table-sm">
+
+    <thead>
+        <tr class="thead-dark">
+            <th>Course Title</th>
+            <th>@Model.CourseName</th>
+
+        </tr>
+        <tr>
+            <td>Topic:</td>
+            <td>@Model.Topic.Name</td>
+        </tr>
+        <tr>
+            <td>Description:</td>
+            <td>@Model.CourseDescription</td>
+        </tr>
+        <tr>
+            <td>Tuition:</td>
+            <td>@Model.Tuition.ToString("c") per month</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@(Model.CourseProgram.Count > 1 ? "Program" : "Program")</td>
+
+            <td>
+                @foreach (CapstoneV4.Models.DomainModels.CourseProgram prgm in Model.CourseProgram)
+                {
+                    <p>
+                        @prgm.Program.ProgramType
+                    </p>
+                }
+            </td>
+        </tr>
+
+
+    </tbody>
+
+
+</table>
+
+
+<form asp-controller="Cart" asp-action="Add" method="post">
+    <button type="submit" name="id" value="@Model.CourseID" class="btn btn-danger">Enroll</button>
+
+
+</form>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>

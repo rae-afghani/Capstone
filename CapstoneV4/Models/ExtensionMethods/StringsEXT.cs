@@ -10,7 +10,7 @@ namespace CapstoneV4.Models.ExtensionMethods
         public static string Slug(this string s)
         {
             var sBuilder = new StringBuilder();
-            foreach(char c in s)
+            foreach (char c in s)
             {
                 //this conditional will ignore dashes/punctuation
                 //in slugs

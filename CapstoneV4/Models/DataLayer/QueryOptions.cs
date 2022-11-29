@@ -1,13 +1,11 @@
 ﻿using System.Linq.Expressions;
-using System;
-using CapstoneV4.Models.DomainModels;
 
 namespace CapstoneV4.Models.DataLayer
 {
     public class QueryOptions<T>
     {
-     
-        public Expression<Func<T,Object>> OrderBy { get; set; }
+
+        public Expression<Func<T, Object>> OrderBy { get; set; }
         public string OrderByDirection { get; set; } = "asc";
         public int PageNumber { get; set; }
         public int PageSize { get; set; }
@@ -21,9 +19,9 @@ namespace CapstoneV4.Models.DataLayer
         public string[] GetIncludes() => includes ?? new string[0];
 
 
-   
-        public WhereClauses<T> WhereClauses { get; set; }
-        public Expression<Func<T,bool>> Where
+
+        public WhereClauses<T>? WhereClauses { get; set; }
+        public Expression<Func<T, bool>> Where
         {
             set
             {

@@ -1,0 +1,160 @@
+﻿@model CapstoneV4.Models.ViewModels.CourseListVM
+
+@{
+    ViewData["Title"] = " | Course Catalog";
+    CapstoneV4.Models.Grid.RouteDictionary current = Model.CurrentRoute;
+    CapstoneV4.Models.Grid.RouteDictionary routes = Model.CurrentRoute.Clone();
+
+}
+
+<h1>Programs</h1>
+
+<div style="margin: 10px auto 5px;">
+    <div class="m-auto" style="display:flex; justify-content:left;">
+        <form asp-controller="Courses" asp-action="Filter" method="post" class="form-inline">
+
+            <div style="display:table; justify-content:space-evenly;">
+                <div style="display:table-cell; padding:0px 10px; ">
+                    <label class="">Program Type</label>
+                    <select name="filter" class="form-control" style="width:100%" asp-items="@(new SelectList(Model.Programs,"ProgramID","ProgramType", current.ProgramFilter))">
+                        <option value="@CapstoneV4.Models.DTOs.CourseGridDTO.DefaultFilter">All</option>
+                    </select>
+                </div>
+
+                <div style="display:table-cell; padding:0px 10px; ">
+                    <label class="">Topic</label>
+                    <select name="filter" class="form-control" style="width:100%" asp-items="@(new SelectList(Model.Topics,"TopicID","Name", current.TopicFilter))">
+                        <option value="@CapstoneV4.Models.DTOs.CourseGridDTO.DefaultFilter">All</option>
+
+
+                    </select>
+                </div>
+
+                <div style="display:table-cell; padding:0px 10px; ">
+                    <label class="">Tution</label>
+                    <select name="filter" class="form-control" style="width:100%" asp-items="@(new SelectList(Model.Tution,"Key","Value", current.TuitionFilter))">
+                        <option value="@CapstoneV4.Models.DTOs.CourseGridDTO.DefaultFilter">All</option>
+
+
+                    </select>
+                </div>
+
+
+            </div>
+
+
+
+
+
+            <button type="submit" class="btn m-2 text-white fw-bold" style="background:#9126bd;">Filter</button>
+            <button type="submit" name="clear" value="true" class="btn btn-outline-primary m-2">Clear Filters</button>
+
+           <!--
+
+
+           -->
+
+
+
+        </form>
+        <br />
+        <div style="display:flex; justify-content:left;">
+            @* page-size form *@
+            <form asp-controller="Courses" asp-action="PageSize" method="post" class="form-inline">
+
+                <div style="">
+                    <label>Page Size:</label>
+                    <select name="pagesize" class="form-control" asp-items="@(new SelectList(Model.PageSizes,current.PageSize))">
+                    </select>
+                </div>
+                <button type="submit" class="btn m-2 text-white fw-bold" style="background:#9126bd;">Update</button>
+            </form>
+
+   
+        </div>
+    </div>
+
+
+
+</div>
+
+@* add to cart*@
+<form asp-controller="Cart" asp-action="Add" method="post" style="margin:20px 5px;">
+    <table class="table table-bordered table-striped table-sm">
+        <thead class="thead-dark">
+            <tr>
+                <th>
+                    @{ routes.SetSortDirection(nameof(CapstoneV4.Models.DomainModels.Courses.CourseName), current);}
+                    <a asp-controller="Courses" asp-action="List" asp-all-route-data="@routes" class="text-center">Course</a>
+
+                </th>
+                <th>
+                    @{ routes.SetSortDirection(nameof(CapstoneV4.Models.DomainModels.Topics.Name), current);}
+                    <a asp-controller="Courses" asp-action="List" asp-all-route-data="@routes" class="text-center">Topic</a>
+
+                </th>
+
+                <th>
+                    @{
+                        routes.SetSortDirection(nameof(CapstoneV4.Models.DomainModels.Program.ProgramType), current);
+                    }
+                    <a asp-controller="Courses" asp-action="List" asp-all-route-data="@routes" class="text-center">Class Type</a>
+
+                </th>
+
+                <th>
+                    @{ routes.SetSortDirection(nameof(CapstoneV4.Models.DomainModels.Courses.Tuition), current);}
+                    <a asp-controller="Courses" asp-action="List" asp-all-route-data="@routes" class="text-center">Tuition</a>
+
+                </th>
+
+                <th></th>
+            </tr>
+            
+
+
+        </thead>
+        <tbody>
+            @foreach(CapstoneV4.Models.DomainModels.Courses course in Model.Courses)
+            {
+                <tr>
+                    <td>
+                        <a asp-controller="Courses" asp-action="Details" asp-route-id="@course.CourseID">@course.CourseName</a>
+                    </td>                 
+                    <td>@course.Topic.Name</td>
+
+                    <td>
+                        @foreach (var prgm in course.CourseProgram)
+                        {
+                            <p asp-controller="Programs" asp-action="Details" asp-route-id="prgm.ProgramID">@prgm.Program.ProgramType
+  </p>
+                        }
+                    </td>
+                    <td>@course.Tuition.ToString("c")</td>
+                    <td style="">
+
+                        <button type="submit" name="id" value="@course.CourseID" class="btn text-light" style="background:#010043;">Enroll</button>
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</form>
+
+@*paging*@
+@{
+    routes = Model.CurrentRoute.Clone();
+
+    for(int i = 1; i <= Model.TotalPages; i++ )
+    {
+        routes.PageNumber = i;
+        <a asp-controller="Courses" asp-action="List" asp-all-route-data="@routes" style="margin:10px 5px 25px;" class="btn btn-outline-secondary @CapstoneV4.Models.ViewModels.NavigationVM.ActiveLink(i, current.PageNumber)">@i</a>
+    }
+}
+
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>

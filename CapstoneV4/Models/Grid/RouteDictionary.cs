@@ -23,7 +23,6 @@ namespace CapstoneV4.Models.Grid
             get => Get(nameof(GridDTO.PageSize)).ToInt();
             set => this[nameof(GridDTO.PageSize)] = value.ToString();
         }
-
         public string SortField
         {
             get => Get(nameof(GridDTO.SortField));
@@ -66,32 +65,32 @@ namespace CapstoneV4.Models.Grid
 
         //setting up routes
         // get (check if not null) then set
-        public string GenreFilter
+        public string TopicFilter
         {
-            get => Get(nameof(BookGridDTO.Genre))?.Replace(FilterPrefix.Genre, "");
-            set => this[nameof(BookGridDTO.Genre)] = value;
+            get => Get(nameof(CourseGridDTO.Topic))?.Replace(FilterPrefix.Topic, "");
+            set => this[nameof(CourseGridDTO.Topic)] = value;
         }
-        public string PriceFilter
+        public string TuitionFilter
         {
-            get => Get(nameof(BookGridDTO.Price))?.Replace(FilterPrefix.Price, "");
-            set => this[nameof(BookGridDTO.Price)] = value;
+            get => Get(nameof(CourseGridDTO.Tuition))?.Replace(FilterPrefix.Tuition, "");
+            set => this[nameof(CourseGridDTO.Tuition)] = value;
         }
 
-        //author includes prefix, author id, slug
+        //program includes prefix, program id, slug
         //check if not null
-        public string AuthorFilter
+        public string ProgramFilter
         {
             get
-            {   //adds a '-' after each return of substring (author id, book title, author name
-                string s = Get(nameof(BookGridDTO.Author))?.Replace(FilterPrefix.Author, "");
+            {   //adds a '-' after each return of substring
+                string s = Get(nameof(CourseGridDTO.ProgramType))?.Replace(FilterPrefix.ProgramType, "");
                 int index = s?.IndexOf('-') ?? -1;
                 return (index == -1) ? s : s.Substring(0, index);
             }
-            set => this[nameof(BookGridDTO.Author)] = value;
+            set => this[nameof(CourseGridDTO.ProgramType)] = value;
         }
 
         //clears all filters via user action
-        public void ClearFilters() => GenreFilter = PriceFilter = AuthorFilter = BookGridDTO.DefaultFilter;
+        public void ClearFilters() => TopicFilter = TuitionFilter = ProgramFilter = CourseGridDTO.DefaultFilter;
 
     }
 }

@@ -1,6 +1,4 @@
-﻿
-
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace CapstoneV4.Models.ExtensionMethods
 {
@@ -11,9 +9,9 @@ namespace CapstoneV4.Models.ExtensionMethods
     {
         public static string GetCookieString(this IRequestCookieCollection cookies, string key) => cookies[key];
 
-        public static int? GetCookieInt32(this IRequestCookieCollection cookies, string key) => int.TryParse(cookies[key], out int i) ? i : (int?)null;
+        public static int? GetCookieInt32(this IRequestCookieCollection cookies, string key) => int.TryParse(cookies[key], out int i) ? i : null;
 
-        public static T GetCookieObj<T>(this IRequestCookieCollection cookies, string key)
+        public static T? GetCookieObj<T>(this IRequestCookieCollection cookies, string key)
         {
             var value = cookies[key];
             return value == null ? default(T) : JsonConvert.DeserializeObject<T>(value);
